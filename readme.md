@@ -15,16 +15,6 @@ From United States Department of Transportation: <https://www.transtats.bts.gov/
 
 From Kaggle: <https://www.kaggle.com/datasets/iamsouravbanerjee/airline-dataset>
 
-## Some useful links
-
-<https://github.com/fuzhengwei/CodeGuide/blob/50a1d68e4038d8f0eee966e49d65d74926676ad4/docs/md/road-map/mysql.md?plain=1#L119>
-
-<https://github.com/dongmingli-Ben/CSC3170-Database-NBA>
-
-## Environment
-
-linux x86_64
-
 ## ER diagram
 
 ```mermaid
@@ -98,7 +88,13 @@ Then open your browser and visit <http://127.0.0.1:5000/>
 
 There are two types of ways to interact with the database:
 
-|        | ID | Password |
-| ------ | --- | ----------- |
-| Admin  | admin   | admin1234     |
-| User   | user   | user1234     |
+|        | ID | Password | Interaction|
+| ------ | --- | ----------- |----------------|
+| Admin  | admin   | admin1234     |add, delete, update, and query the data|
+| User   | user   | user1234     |only query the data|
+
+If you cannot find the interface, please check whether the database is running.
+
+## LLM interface
+
+User can use this interface to query the flight information by using natural language.
