@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-
 <html lang="en">
   <head>
     <link rel="stylesheet" href="static/css/style.css" />
-
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>wrong</title>
   </head>
 
   <body
@@ -15,18 +13,12 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      height: 100vh;
       align-items: center;
+      height: 100vh;
+      margin: 0;
     "
   >
-    <h1>Login</h1>
-
-    <form method="POST" action="">
-      {{ form.hidden_tag() }} {{ form.username }} {{ form.password }} {{
-      form.submit }}
-    </form>
-
-    <a href="{{ url_for('register') }}">Don't have an account? Sign Up</a>
-    <a href="{{ url_for('home') }}">Back to homepage</a>
+    <h1>Invalid ID or password!!!</h1>
+    <a href="{{url_for('home')}}">Back to homepage</a>
   </body>
 </html>
