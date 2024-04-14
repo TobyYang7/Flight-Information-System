@@ -1,5 +1,7 @@
 # Flight Information System
 
+![alt text](static/images/bg.svg)
+
 Our project is dedicated to advancing data management within the aviation sector through a sophisticated database system. Drawing on an Entity-Relationship (E-R) diagram, we design a relational database to optimize airline operational processes like passenger bookings and flight logistics. This system is expected to facilitate routine operations and analytical tasks via SQL, emphasizing efficiency and data integrity. We integrate the Large Language Models (LLM) into our project to refine the database's architecture, enhancing query generation. We anticipate demonstrating the system's capability to improve the handling of aircraft data and the interaction of diverse operational entities. The project's outcome will be a functional database with a user-friendly web interface, complete with realistic data and queries that replicate the dynamics of airline management.
 
 ## Group Members
