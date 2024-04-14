@@ -95,3 +95,10 @@ python app.py
 ```
 
 Then open your browser and visit <http://127.0.0.1:5000/>
+
+There are two types of ways to interact with the database:
+
+|        | ID | Password |
+| ------ | --- | ----------- |
+| Admin  | admin   | admin1234     |
+| User   | user   | user1234     |
