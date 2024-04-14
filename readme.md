@@ -84,3 +84,14 @@ erDiagram
 ```
 
 ## How to run this project
+
+```bash
+# install dependencies
+pip install -r requirements.txt
+
+# run the app
+python app.py
+
+```
+
+Then open your browser and visit <http://127.0.0.1:5000/>

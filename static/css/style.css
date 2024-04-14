@@ -1,0 +1,86 @@
+/* General body styles */
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+  text-align: center; /* Centers all text */
+}
+
+/* Main content styling */
+main {
+  max-width: 400px; /* Limiting width for better control */
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+h1 {
+  color: #2c3e50; /* Deep shade of blue */
+  margin-bottom: 30px; /* Additional spacing */
+}
+
+/* Form styling */
+form {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #ecf0f1; /* Light grey background */
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="password"] {
+  display: block; /* Makes inputs stack vertically */
+  width: 80%; /* Appropriate width */
+  margin: 10px auto 20px; /* Centers the input and adds spacing */
+  padding: 10px; /* Padding for better text visibility */
+  border: 1px solid #bdc3c7; /* Grey border */
+  border-radius: 4px;
+}
+
+input[type="submit"] {
+  width: 50%; /* Adjust width as necessary */
+  background-color: #3498db; /* Flat UI blue */
+  color: white;
+  border: none;
+  padding: 12px;
+  margin: 10px auto; /* Centering the button */
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+input[type="submit"]:hover {
+  background-color: #2980b9; /* Darker blue for hover effect */
+}
+
+/* Link styling */
+a {
+  color: #e74c3c; /* Red color for links */
+  text-decoration: none;
+  display: block; /* Makes link take full width */
+  margin: 15px auto;
+  width: fit-content;
+}
+
+a:hover {
+  color: #c0392b; /* Darker shade of red on hover */
+  text-decoration: underline;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+  text-align: center; /* Centers all text */
+  background-image: url("/static/images/bg.svg"); /* Add the background image */
+  background-size: 105%; /* Cover the entire body */
+  background-position: center; /* Move the background image to the left */
+  background-repeat: no-repeat; /* No repetition of the image */
+}
