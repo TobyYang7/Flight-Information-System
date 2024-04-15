@@ -44,7 +44,3 @@ class OpenAIGPT:
             n=1,
         )
         return self.__post_process(response)
-
-
-igpt = OpenAIGPT()
-print(igpt(get_flight_info('AA123')))
