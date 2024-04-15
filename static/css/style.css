@@ -6,81 +6,110 @@ body {
   padding: 20px;
   color: #333;
   text-align: center; /* Centers all text */
+  background-image: url("/static/images/bg.svg"); /* Add the background image */
+  background-size: 105%;
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* No repetition of the image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+}
+
+/* Flex container for layout */
+.container {
+  display: flex;
+  width: 90%; /* Control overall form width */
+  max-width: 1200px; /* Maximum width of the layout */
+  align-items: flex-start;
+}
+
+.input-section,
+.output-section {
+  flex: 1;
+  padding: 20px;
+}
+
+.input-section {
+  max-width: 25%; /* Smaller section for inputs */
+}
+
+.output-section {
+  max-width: 75%; /* Larger section for output display */
+  text-align: left;
+}
+
+/* Output text area styling */
+textarea {
+  width: 100%; /* Full width of the container */
+  height: 300px; /* Sufficient height to display multiple lines */
+  padding: 10px;
+  border: 1px solid #bdc3c7;
+  background-color: #ffffff;
+  color: #333;
+  font-family: "Arial", sans-serif;
+  resize: none; /* Prevent resizing */
 }
 
 /* Main content styling */
 main {
-  max-width: 400px; /* Limiting width for better control */
-  margin: 40px auto;
-  padding: 20px;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
 h1 {
-  color: #2c3e50; /* Deep shade of blue */
-  margin-bottom: 30px; /* Additional spacing */
+  color: #2c3e50;
+  margin-bottom: 10px;
 }
 
 /* Form styling */
 form {
-  margin: 20px 0;
-  padding: 20px;
-  background-color: #ecf0f1; /* Light grey background */
+  background-color: #ecf0f1;
   border-radius: 8px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: auto;
 }
 
 input[type="text"],
 input[type="password"] {
-  display: block; /* Makes inputs stack vertically */
-  width: 80%; /* Appropriate width */
-  margin: 10px auto 20px; /* Centers the input and adds spacing */
-  padding: 10px; /* Padding for better text visibility */
-  border: 1px solid #bdc3c7; /* Grey border */
+  width: 90%; /* Slightly less than full width to fit padding */
+  margin: 10px 0;
+  padding: 8px;
+  border: 1px solid #bdc3c7;
   border-radius: 4px;
 }
 
-input[type="submit"] {
-  width: 50%; /* Adjust width as necessary */
-  background-color: #3498db; /* Flat UI blue */
+input[type="submit"],
+.button {
+  background-color: #3498db;
   color: white;
   border: none;
-  padding: 12px;
-  margin: 10px auto; /* Centering the button */
-  cursor: pointer;
+  padding: 10px 20px;
   border-radius: 4px;
   font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 90%;
 }
 
-input[type="submit"]:hover {
-  background-color: #2980b9; /* Darker blue for hover effect */
+input[type="submit"]:hover,
+.button:hover {
+  background-color: #2980b9;
 }
 
 /* Link styling */
 a {
-  color: #e74c3c; /* Red color for links */
+  color: #ffffff;
+  background-color: #e74c3c;
+  padding: 10px 20px;
+  margin: 15px 0;
+  border-radius: 5px;
+  display: inline-block;
   text-decoration: none;
-  display: block; /* Makes link take full width */
-  margin: 15px auto;
-  width: fit-content;
 }
 
 a:hover {
-  color: #c0392b; /* Darker shade of red on hover */
-  text-decoration: underline;
-}
-
-body {
-  font-family: "Arial", sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 20px;
-  color: #333;
-  text-align: center; /* Centers all text */
-  background-image: url("/static/images/bg.svg"); /* Add the background image */
-  background-size: 105%; /* Cover the entire body */
-  background-position: center; /* Move the background image to the left */
-  background-repeat: no-repeat; /* No repetition of the image */
+  background-color: #c0392b;
 }
