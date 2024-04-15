@@ -101,4 +101,6 @@ If you cannot find the interface, please check whether the database is running.
 
 ## LLM interface
 
+**Notice:** You need to configure your own API keys and base URL. If you need assistance, please contact [@TobyYang7](https://github.com/tobyyang7).
+
 User can use this interface to query the flight information by using natural language.
