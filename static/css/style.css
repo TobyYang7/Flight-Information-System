@@ -113,3 +113,19 @@ a {
 a:hover {
   background-color: #c0392b;
 }
+
+.custom-link {
+  font-size: 0.8em !important;
+  color: gray !important;
+  text-align: center !important;
+  background-color: transparent !important;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.custom-link:hover {
+  color: black;
+  text-decoration: underline;
+}

@@ -19,8 +19,27 @@
       "
     >
       <h1>Welcome to Flight Information System!</h1>
-      <a href="{{ url_for('admin_login') }}" class="button">Admin Login</a>
-      <a href="{{ url_for('user_login') }}" class="button">User Login</a><br />
+      <div style="text-align: center">
+        <a
+          href="{{ url_for('admin_login') }}"
+          class="button"
+          style="width: 150px"
+          >Admin Login</a
+        >
+        <a
+          href="{{ url_for('user_login') }}"
+          class="button"
+          style="width: 150px"
+          >User Login</a
+        ><br />
+      </div>
+      <a
+        href="https://github.com/TobyYang7/Flight-Information-System"
+        class="custom-link"
+      >
+        &copy; 2024 Flight Information System. All rights reserved.
+      </a>
+      <br />
     </div>
   </body>
 </html>
