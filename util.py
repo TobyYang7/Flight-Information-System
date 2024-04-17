@@ -15,6 +15,7 @@ def get_airport_info(airport_code):
 
 def operat_db(code):
     # todo
+    print()
     pass
 
 
