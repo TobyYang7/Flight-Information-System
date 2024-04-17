@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="static/css/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Query Interface</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="input-section">
+        <h1>Admin Interface</h1>
+        <form method="POST">
+          <label for="query_type">Choose a query type:</label>
+          <br /><br /><br />
+          <label for="query">Enter your query:</label>
+          <input type="text" id="code" name="query" required />
+          <br /><br />
+          <label for="ai_query">Ask OpenAI:</label>
+          <input
+            type="text"
+            id="ai_query"
+            name="ai_query"
+            placeholder="Ask me anything..."
+          />
+          <br /><br />
+          <button type="submit" class="button">Submit</button><br />
+          <a href="{{ url_for('user_login') }}">Log out</a>
+        </form>
+      </div>
+      <div class="output-section">
+        <h2>Results:</h2>
+        <textarea readonly id="output">
+{% if info %}Query Result: {{ info }}{% endif %}
+{% if ai_response %}OpenAI Response: {{ ai_response }}{% endif %}
+</textarea
+        >
+      </div>
+    </div>
+  </body>
+</html>

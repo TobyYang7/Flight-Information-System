@@ -94,5 +94,19 @@ def user_page():
     return render_template('user_page.html', info=info, ai_response=ai_response)
 
 
+@app.route('/admin_page', methods=['GET', 'POST'])
+def user_page():
+    info = ""
+    ai_response = ""
+    if request.method == 'POST':
+        code = request.form.get('code')
+        ai_query = request.form.get('ai_query')
+
+        if ai_query:
+            ai_response = igpt(ai_query)
+
+    return render_template('admin_page.html', info=info, ai_response=ai_response)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

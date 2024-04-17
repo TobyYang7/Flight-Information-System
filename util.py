@@ -13,7 +13,12 @@ def get_airport_info(airport_code):
     return f"Information for airport {airport_code}: Weather is clear, all flights on time."
 
 
-# todo: change your own api base url and config the api key
+def operat_db(code):
+    # todo
+    pass
+
+
+    # todo: change your own api base url and config the api key
 openai.api_base = "https://api.ai-gaochao.cn/v1"
 
 
