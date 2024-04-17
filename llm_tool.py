@@ -1,3 +1,5 @@
+from openai import OpenAI
+import streamlit as st
 import os
 from typing import Any
 
@@ -9,8 +11,6 @@ from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 from langchain import SQLDatabase
 from langchain_experimental.sql import SQLDatabaseChain
 import pymysql
-
-
 
 
 class MySqlTool:
@@ -26,7 +26,7 @@ class MySqlTool:
                 password='zh19991111',
                 database='employee'
             )
-        
+
         return MySqlTool.connection
 
 
@@ -38,16 +38,14 @@ def queryEmployee(query: str):
 
     id = 0
     try:
-        id =int(query) or 0
+        id = int(query) or 0
     except ValueError:
         id = 0
-
 
     sql = f"SELECT * FROM worker where WORKER_ID = {id} or FIRST_NAME = '{query}' or SALARY = '{query}'"
     print("sql: ", sql)
     cursor.execute(sql)
 
- 
     results = cursor.fetchall()
 
     info = ""
@@ -55,55 +53,51 @@ def queryEmployee(query: str):
     for row in results:
         info += f"id: {row[0]}, 姓名: {row[1]}, 工资: {row[3]}, 入职时间: {row[4]}, 部门: {row[5]} \n"
 
-
     cursor.close()
     print(type(info))
 
     return info
 
+
 class EmployeeQueryTool(BaseTool):
     name = "employeeQuery"
     description = "If user want to do query about database, use it"
+
     def _run(self, query: str) -> str:
         print("\nEmployeeQueryTool query: " + query)
         info = queryEmployee(query)
-        if (len(info) > 0) :
+        if (len(info) > 0):
             return info
         else:
             return "未找到员工信息!"
 
 
-
-
 llm = ChatOpenAI(openai_api_key='sk-ZKLYy95Hb6QwvoIaE8A1A6Ce6d3d4172Bf50Fa929a650a87', openai_api_base='https://elderman.top/v1', temperature=0, model_name='gpt-3.5-turbo-1106')
 tools = [EmployeeQueryTool()]
 agent = initialize_agent(
-    agent= 'chat-conversational-react-description',
+    agent='chat-conversational-react-description',
     tools=tools,
     llm=llm,
     verbose=True,
     max_iterations=3,
     early_stopping_method='generate',
-    memory= ConversationBufferWindowMemory(
-        memory_key= 'chat_history',
-        k= 5,
-        return_messages= True
+    memory=ConversationBufferWindowMemory(
+        memory_key='chat_history',
+        k=5,
+        return_messages=True
     )
-    
+
 )
 
-import streamlit as st
-from openai import OpenAI
 
-model_list = ["llama2","orca-mini","gemma:2b","openai_model"]
+model_list = ["llama2", "orca-mini", "gemma:2b", "openai_model"]
 
 # Set OpenAI API key from Streamlit secrets
 # client = OpenAI(
 #     base_url = 'http://localhost:11434/v1',
 #     api_key='ollama', # required, but unused
 # )
-llm = ChatOpenAI(openai_api_key='sk-ZKLYy95Hb6QwvoIaE8A1A6Ce6d3d4172Bf50Fa929a650a87', openai_api_base='https://elderman.top/v1', temperature=0, model_name='gpt-3.5-turbo-1106')
-client = OpenAI(api_key='sk-ZKLYy95Hb6QwvoIaE8A1A6Ce6d3d4172Bf50Fa929a650a87', base_url='https://elderman.top/v1')
+
 
 # Set a default model
 if "openai_model" not in st.session_state:
@@ -112,7 +106,7 @@ if "openai_model" not in st.session_state:
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    
+
 with st.sidebar:
     st.subheader("Settings")
 
@@ -149,9 +143,6 @@ if prompt := st.chat_input("What is up?"):
         )
         response = st.write_stream(stream)
     st.session_state.messages.append({"role": "assistant", "content": response})
-    
-
-
 
 
 while True:
