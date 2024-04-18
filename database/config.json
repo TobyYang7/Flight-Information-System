@@ -1,0 +1,53 @@
+{
+    "airport":{
+        "AirportID": "AirportID",
+        "AirportCity": "AirportCity",
+        "TimeZone": "TimeZone",
+        "Type": "Type"
+    },
+
+    "airline":{
+        "IATACode": "IATACode",
+        "Headquarters": "Headquarters",
+        "Alliance": "Alliance",
+        "FoundingYear": "FoundingYear"
+    },
+
+    "plane":{
+        "PlaneID": "PlaneID",
+        "PlaneModel": "PlaneModel",
+        "Capacity": "Capacity",
+        "RegistrationCountryCode": "RegistrationCountryCode",
+        "Age": "Age",
+        "CurrentOperator": "CurrentOperator"
+    },
+
+    "passenger":{
+        "PassengerID" : "PassengerID",
+        "FirstName": "FirstName",
+        "LastName": "LastName",
+        "Gender": "Gender",
+        "Age": "Age",
+        "NationalityCode": "Nationality"
+    },
+
+    "flight":{
+        "FlightID": "FlightID",
+        "DepartureAirportID": "DepartureAirportID",
+        "ArrivalAirportID": "ArrivalAirportID",
+        "FlightStatus": "FlightStatus",
+        "PlaneID": "PlaneID",
+        "ScheduledDeparture": "ScheduledDeparture",
+        "ScheduledArrival": "ScheduledArrival",
+        "ActualDeparture": "ActualDeparture",
+        "ActualArrival": "ActualArrival"
+    },
+
+    "booking":{
+        "BookingID" : "BookingID",
+        "PassengerID": "PassengerID",
+        "FlightID": "FlightID",
+        "BookingDate": "BookingDate",
+        "SeatID": "SeatID"
+    }
+}
