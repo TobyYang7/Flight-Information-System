@@ -1,0 +1,34 @@
+AirportID,AirportCity,TimeZone,Type
+JFK,New York,UTC-4,Public
+LAX,Los Angeles,UTC-7,Public
+SNA,Los_Angeles,UTC-4,Public
+CVG,Cincinnati,UTC-4,Public
+PHX,Phoenix,UTC-7,Public/Military
+EWR,Elizabeth,UTC-4,Public
+SEA,Seattle,UTC-7,Public
+IND,Indianapolis,UTC-5,Public
+CLE,Cleveland,UTC-4,Public
+BOS,Boston,UTC-4,Public
+CUN,Cancun,UTC-5,Public
+ORF,Norfolk,UTC-4,Public
+EUG,Eugene,UTC-7,Public
+BOI,Boise,UTC-6,Public
+HNL,Honolulu,UTC-10,Public
+SGA,Cancun,UTC+4,Public/Military
+PHL,Philadelphia,UTC-4,Public
+DCA,Washington D.C.,UTC-4,Public
+CLT,Charlotte,UTC-4,Public
+BUR,Burbank,UTC-7,Public
+SFO,San Francisco,UTC-7,Public
+MSO,Missoula,UTC-6,Public
+ORD,Chicago,UTC-5,Public
+MIA,Miami,UTC-4,Public
+SJC,San Jose,UTC-7,Public
+DFW,Dallas-Fort Worth,UTC-5,Public
+SAN,San Diego,UTC-7,Public
+PDX,Portland,UTC-7,Public
+SJU,San Juan,UTC-4,Public
+OGG,Kahului,UTC-10,Public
+STL,St. Louis,UTC-5,Public
+RDU,Raleigh-Durham,UTC-4,Public
+MIA,Miami,UTC-5,Public/Military
