@@ -3,23 +3,49 @@ import random
 from retrying import retry
 
 
+'''
+User Interface: get_flight_info, get_airport_info
+Admin Interface: operate_db
+
+LLM Interface: use the output of the user or admin interface to generate the next input.
+'''
+
+
 def get_flight_info(flight_code):
     # todo
-    return f"Information for flight {flight_code}: Delayed, arriving at 10 PM."
+    '''
+    Input:
+        flight_code: string, flight number
+    Output:
+        json, All the information of the flight with the given flight number.
+    '''
+    pass
 
 
 def get_airport_info(airport_code):
     # todo
-    return f"Information for airport {airport_code}: Weather is clear, all flights on time."
-
-
-def operat_db(code):
-    # todo
-    print()
+    '''
+    Input:
+        airport_code: string, IATA code
+    Output:
+        json, All the information of the airport with the given IATA code.
+    '''
     pass
 
 
-    # todo: change your own api base url and config the api key
+def operate_db(code):
+    # todo
+    '''
+    Input:
+        code: string, sql code
+    Output:
+        Include four operations: insert, delete, update, query
+        Each operation will directly return the result(or status) of the operation.
+    '''
+    pass
+
+
+# todo: change your own api base url and config the api key
 openai.api_base = "https://api.ai-gaochao.cn/v1"
 
 
