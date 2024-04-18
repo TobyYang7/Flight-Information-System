@@ -102,6 +102,8 @@ def user_page():
         code = request.form.get('code')
         ai_query = request.form.get('ai_query')
 
+        util.operate_db(code)
+
         if ai_query:
             ai_response = igpt(ai_query)
 
