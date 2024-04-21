@@ -8,17 +8,16 @@ from flask_bcrypt import Bcrypt
 import util
 from util import OpenAIGPT
 
+
+history = []
 igpt = OpenAIGPT(keys_path="apikey.txt")
 
 app = Flask(__name__)
 
-# database name
+
 db_path = 'database/test.db'
-
-# config app to use database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path
-app.config['SECRET_KEY'] = 'thisisasecretkey'
-
+app.config['SECRET_KEY'] = 'password'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
@@ -73,41 +72,76 @@ def user_login():
     return render_template('user_login.html', form=form)
 
 
+# todo: LLM interface
 @app.route('/user_page', methods=['GET', 'POST'])
 def user_page():
-    info = ""
-    ai_response = ""
     if request.method == 'POST':
         query_type = request.form.get('query_type')
         query = request.form.get('query')
         ai_query = request.form.get('ai_query')
 
-        if query_type and query:
-            if query_type == 'flight':
+        if query_type and query and ai_query:
+            if query_type == "flight":
                 info = util.get_flight_info(query)
-            elif query_type == 'airport':
+            elif query_type == "airport":
                 info = util.get_airport_info(query)
 
-        if ai_query:
-            ai_response = igpt(ai_query)
+            ai_input = f'{info} {ai_query}'
+            ai_response = igpt(ai_input)
 
-    return render_template('user_page.html', info=info, ai_response=ai_response)
+            history.append({"role": "user", "content": ai_query})
+            if info == '':
+                history.append({"role": "error", "content": "No information found!"})
+            history.append({"role": "system", "content": f"{info}"})
+            history.append({"role": "assistant", "content": ai_response})
+
+        elif query_type and query:
+            if query_type == "flight":
+                info = util.get_flight_info(query)
+            elif query_type == "airport":
+                info = util.get_airport_info(query)
+
+            history.append({"role": "user", "content": f"Your query {query_type}: {query}"})
+            if info == '':
+                history.append({"role": "error", "content": "No information found!"})
+            history.append({"role": "system", "content": f"{info}"})
+
+        elif ai_query:
+            if len(history) > 0:
+                ai_input = f"这是你获得的信息{history[-1]['content']}，从这里面回答一下问题{ai_query}"
+            else:
+                ai_input = ai_query
+            ai_response = igpt(ai_input)
+            history.append({"role": "user", "content": ai_query})
+            history.append({"role": "assistant", "content": ai_response})
+
+        else:
+            history.clear()
+
+        return render_template('user_page.html', history=history)
+    return render_template('user_page.html', history=history)
 
 
+# todo: LLM interface & DB
 @app.route('/admin_page', methods=['GET', 'POST'])
 def admin_page():
-    info = ""
-    ai_response = ""
     if request.method == 'POST':
-        code = request.form.get('code')
+        code = request.form.get('query')
         ai_query = request.form.get('ai_query')
 
-        util.operate_db(code)
+        if code:
+            status = util.operate_db(code)
+            history.append({"role": "user", "content": code})
+            history.append({"role": "system", "content": status})
 
         if ai_query:
-            ai_response = igpt(ai_query)
+            pass
 
-    return render_template('admin_page.html', info=info, ai_response=ai_response)
+        else:
+            history.clear()
+
+        return render_template('user_page.html', history=history)
+    return render_template('user_page.html', history=history)
 
 
 if __name__ == "__main__":

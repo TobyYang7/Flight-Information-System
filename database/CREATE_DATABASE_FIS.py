@@ -54,4 +54,4 @@ def create_relation_schema(relation_schema):
 
 if __name__ == "__main__":
     create_database('FIS')
-    create_relation_schema('relation schema.sql')
+    create_relation_schema('database/relation_schema.sql')

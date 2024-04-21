@@ -12,12 +12,14 @@ Admin Interface: operate_db
 LLM Interface: use the output of the user or admin interface to generate the next input.
 '''
 
+
 def prepare_cursor():
-    with open('database/fis_config') as f: 
+    with open('database/fis_config.json') as f:
         config = json.load(f)
     cnx = mysql.connector.connect(**config)
     cursor = cnx.cursor(buffered=True)
     return cursor, cnx
+
 
 def format_data(fields, result):
     field = []
@@ -29,50 +31,50 @@ def format_data(fields, result):
         for i in range(len(field)):
             line_data += f"{field[i]}: {iter[i]}\n"
         ret += line_data
-    return ret
-    
+    return ret.rstrip('\n')
+
+
 def get_flight_info(flight_code):
-    # todo
     '''
     Input:
         flight_code: string, flight number
     Output:
         json, All the information of the flight with the given flight number.
     '''
-    try:    
+    try:
         cursor, _ = prepare_cursor()
         cursor.execute(f"SELECT * FROM flight WHERE FlightID='{flight_code}'")
         result = cursor.fetchall()
         fields = cursor.description
         ret = format_data(fields, result)
         return ret
-    
+
     except Exception as e:
         return f"Failed to get info: {e}"
-    
+
     finally:
         if 'cursor' in locals():
             cursor.close()
 
+
 def get_airport_info(airport_code):
-    # todo
     '''
     Input:
         airport_code: string, IATA code
     Output:
         json, All the information of the airport with the given IATA code.
     '''
-    try:    
+    try:
         cursor, _ = prepare_cursor()
         cursor.execute(f"SELECT * FROM airport WHERE AirportID='{airport_code}'")
         result = cursor.fetchall()
         fields = cursor.description
         ret = format_data(fields, result)
         return ret
-    
+
     except Exception as e:
         return f"Failed to get info: {e}"
-    
+
     finally:
         if 'cursor' in locals():
             cursor.close()
@@ -121,5 +123,5 @@ class OpenAIGPT:
             n=1,
         )
         return self.__post_process(response)
-    
-print(get_flight_info("AA0164051723"))
+
+# print(get_flight_info("AA0164051723"))

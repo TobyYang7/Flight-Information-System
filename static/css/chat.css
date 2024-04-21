@@ -1,0 +1,131 @@
+html,
+body {
+  height: 100%; /* Full height of the viewport */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  display: flex; /* Enables flexbox properties */
+  justify-content: center; /* Centers content horizontally */
+  align-items: center; /* Centers content vertically */
+  background-image: url("/static/images/bg.svg"); /* Background image */
+  background-size: 105%; /* Background size as requested */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* No repeat of the background image */
+  background-attachment: fixed; /* Fixed background on scroll */
+  font-family: "Arial", sans-serif; /* Font family as requested */
+  color: #333; /* Text color for better contrast */
+}
+
+.chat-container {
+  width: 800px; /* 固定宽度 */
+  height: 750px; /* 固定高度 */
+  margin: 20px auto;
+  box-shadow: 0 0 10px #ccc;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.5); /* 半透明背景 */
+  backdrop-filter: blur(10px); /* 背景模糊效果 */
+  -webkit-backdrop-filter: blur(
+    10px
+  ); /* 针对旧版 Safari 浏览器的背景模糊效果 */
+  border-radius: 20px; /* 圆角 */
+  overflow: auto; /* 超出部分滚动显示 */
+}
+
+.chat-history {
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  overflow-y: scroll;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px #ccc;
+}
+
+.input-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-form input,
+.input-form select,
+.input-form button {
+  padding: 10px;
+  margin: 5px 0;
+  box-sizing: border-box;
+}
+
+.system,
+.error,
+.assistant,
+.user {
+  text-align: left;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+  max-width: 600px; /* 或根据实际情况调整宽度 */
+  box-sizing: border-box; /* 包括padding和border在内的宽度 */
+  white-space: pre-wrap; /* 保留换行符 */
+}
+
+.user {
+  color: green;
+  background-color: #f0fff0;
+  text-align: right; /* 用户消息右对齐 */
+  align-self: flex-end;
+}
+
+.system {
+  color: #333;
+  background-color: #f2f2f2;
+  align-self: flex-start;
+}
+
+.assistant {
+  color: #3c8ffb;
+  background-color: #e0f0ff; /* 浅蓝色背景 */
+  align-self: flex-start;
+}
+
+.error {
+  color: red;
+  background-color: rgb(255, 200, 200);
+  align-self: flex-start;
+}
+
+a {
+  padding: 10px;
+  margin: 5px 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  background-color: #e74c3c;
+  border-radius: 5px;
+  text-align: center;
+  display: block;
+  line-height: 20px;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+a:hover {
+  background-color: #c0392b;
+}
+
+.input-form button {
+  background-color: #3498db;
+  color: white;
+  transition: background-color 0.3s ease;
+  border: none;
+  padding: 10px;
+  margin: 5px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+  text-align: center;
+  display: block;
+  line-height: 20px;
+  font-size: 16px;
+}
+
+.input-form button:hover {
+  background-color: #2980b9;
+}
