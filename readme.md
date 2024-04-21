@@ -23,57 +23,62 @@ From Kaggle: <https://www.kaggle.com/datasets/iamsouravbanerjee/airline-dataset>
 
 ```mermaid
 erDiagram
-    PASSENGER ||--o{ FLIGHT : books
-    FLIGHT ||--|| AIRPORT : departs
-    FLIGHT ||--|| AIRPORT : arrives
-    FLIGHT ||--|| PLANE : uses
-    AIRLINE ||--o{ FLIGHT : operates
-    FLIGHT ||--|| FLIGHT-SCHEDULE : scheduled
-
-    PASSENGER {
-        int PassengerID PK "Unique identifier"
-        string FirstName "First name"
-        string LastName "Last name"
-        char Gender "Gender"
-        int Age "Age"
-        string Nationality "Nationality"
-    }
-
+    AIRPORT ||--o{ FLIGHT : "departure"
+    AIRPORT ||--o{ FLIGHT : "arrival"
     AIRPORT {
-        string AirportName PK "Name of the airport"
-        char AirportCountryCode "Country code"
-        string CountryName "Country name"
-        string AirportContinent "Continent"
+        string AirportID PK
+        string AirportCity
+        string TimeZone
+        string Type
     }
-
-    PLANE {
-        int PlaneID PK "Unique identifier"
-        string PlaneModel "Model"
-        int Capacity "Capacity"
-    }
-
-    FLIGHT {
-        int FlightID PK "Unique identifier"
-        string DepartureAirport FK "Departure airport"
-        string ArrivalAirport FK "Arrival airport"
-        date DepartureDate "Departure date"
-        string FlightStatus "Status"
-        int PlaneID FK "Plane used"
-        int AirlineID FK "Operated by"
-    }
-
+    
+    AIRLINE ||--o{ PLANE : "operates"
     AIRLINE {
-        int AirlineID PK "Unique identifier"
-        string AirlineName "Name"
-        string Headquarters "Headquarters"
+        string IATACode PK
+        string Headquarters
+        string Alliance
+        string FoundingYear
     }
 
-    FLIGHT-SCHEDULE {
-        int FlightID FK "Flight"
-        datetime ScheduledDeparture "Scheduled departure"
-        datetime ActualDeparture "Actual departure"
-        datetime ScheduledArrival "Scheduled arrival"
-        datetime ActualArrival "Actual arrival"
+    PLANE ||--o{ FLIGHT : "uses"
+    PLANE {
+        string PlaneID PK
+        string PlaneModel
+        int Capacity
+        string RegistrationCountryCode
+        int Age
+        string CurrentOperator FK
+    }
+
+    PASSENGER ||--o{ BOOKING : "books"
+    PASSENGER {
+        int PassengerID PK
+        string FirstName
+        string LastName
+        char Gender
+        int Age
+        string NationalityCode
+    }
+
+    FLIGHT ||--o{ BOOKING : "bookedFor"
+    FLIGHT {
+        string FlightID PK
+        string DepartureAirportID FK
+        string ArrivalAirportID FK
+        string FlightStatus
+        string PlaneID FK
+        string ScheduledDeparture
+        string ScheduledArrival
+        string ActualDeparture
+        string ActualArrival
+    }
+
+    BOOKING {
+        int BookingID PK
+        int PassengerID FK
+        string FlightID FK
+        string BookingDate
+        string SeatID
     }
 ```
 
