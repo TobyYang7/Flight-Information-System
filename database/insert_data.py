@@ -9,7 +9,7 @@ EPS = 1e-10
 
 
 def prepare_cursor():
-    with open('fis_config.json') as f:
+    with open('database/fis_config.json') as f:
         config = json.load(f)
     cnx = mysql.connector.connect(**config)
     cursor = cnx.cursor(buffered=True)
@@ -59,7 +59,7 @@ def load_data_config(path: str):
 
 
 if __name__ == "__main__":
-    data_config = load_data_config('data_config.json')
+    data_config = load_data_config('database/data_config.json')
     for table, col_map in data_config.items():
         print(f'inserting data for {table}')
-        insert_csv_to_database(f'data/{table}.csv', table, col_map, 10000)
+        insert_csv_to_database(f'database/data/{table}.csv', table, col_map, 10000)

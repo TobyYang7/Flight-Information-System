@@ -6,7 +6,7 @@ host=${host:-127.0.0.1}
 read -p "Enter the port (default: 3306): " port
 port=${port:-3306}
 read -p "Enter the user: " user
-read -p "Enter the password: " password
+read -s -p "Enter the password: " password
 
 # Check if user and password are empty
 if [[ -z $user || -z $password ]]; then
@@ -16,16 +16,16 @@ fi
 
 echo "Setting up the database..."
 
-# Update the server_config.json file
-sed -i "s/\"host\": \".*\"/\"host\": \"$host\"/" database/server_config.json
-sed -i "s/\"port\": \".*\"/\"port\": \"$port\"/" database/server_config.json
-sed -i "s/\"user\": \".*\"/\"user\": \"$user\"/" database/server_config.json
-sed -i "s/\"password\": \".*\"/\"password\": \"$password\"/" database/server_config.json
+# Update the server_config.json and fis_config.json files
+for json_file in database/server_config.json database/fis_config.json
+do
+    jq --arg host "$host" '.host = $host' $json_file > tmp.$$.json && mv tmp.$$.json $json_file
+    jq --arg port "$port" '.port = $port' $json_file > tmp.$$.json && mv tmp.$$.json $json_file
+    jq --arg user "$user" '.user = $user' $json_file > tmp.$$.json && mv tmp.$$.json $json_file
+    jq --arg password "$password" '.password = $password' $json_file > tmp.$$.json && mv tmp.$$.json $json_file
+done
 
-# Updata the fis_config.json file
-sed -i "s/\"host\": \".*\"/\"host\": \"$host\"/" database/fis_config.json
-sed -i "s/\"port\": \".*\"/\"port\": \"$port\"/" database/fis_config.json
-sed -i "s/\"user\": \".*\"/\"user\": \"$user\"/" database/fis_config.json
-sed -i "s/\"password\": \".*\"/\"password\": \"$password\"/" database/fis_config.json
+echo "Setup configuration files completed."
 
-echo "Setup completed!"
+python database/CREATE_DATABASE_FIS.py
+python database/insert_data.py

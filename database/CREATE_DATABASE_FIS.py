@@ -3,7 +3,7 @@ import json
 
 
 def prepare_cursor():
-    with open('server_config.json') as f:
+    with open('database/server_config.json') as f:
         config = json.load(f)
     cnx = mysql.connector.connect(**config)
     cursor = cnx.cursor(buffered=True)
