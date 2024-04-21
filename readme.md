@@ -80,8 +80,14 @@ erDiagram
 ## How to run this project
 
 ```bash
+# clone the repo
+git clone https://github.com/tobyyang7/flight-information-system.git
+
 # install dependencies
 pip install -r requirements.txt
+
+# setup the database
+bash setup.sh
 
 # run the app
 python app.py
