@@ -95,7 +95,7 @@ def user_page():
 
 
 @app.route('/admin_page', methods=['GET', 'POST'])
-def user_page():
+def admin_page():
     info = ""
     ai_response = ""
     if request.method == 'POST':

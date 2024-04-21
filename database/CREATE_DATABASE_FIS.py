@@ -1,12 +1,14 @@
 import mysql.connector
 import json
 
+
 def prepare_cursor():
     with open('server_config.json') as f:
         config = json.load(f)
     cnx = mysql.connector.connect(**config)
     cursor = cnx.cursor(buffered=True)
     return cursor, cnx
+
 
 def create_database(database_name):
     try:
@@ -24,6 +26,7 @@ def create_database(database_name):
             cursor.close()
         if 'cnx' in locals():
             cnx.close()
+
 
 def create_relation_schema(relation_schema):
     try:
@@ -47,6 +50,7 @@ def create_relation_schema(relation_schema):
             cursor.close()
         if 'cnx' in locals():
             cnx.close()
+
 
 if __name__ == "__main__":
     create_database('FIS')
