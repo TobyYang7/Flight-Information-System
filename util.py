@@ -73,7 +73,9 @@ CREATE TABLE BOOKING (
     FOREIGN KEY (PassengerID) REFERENCES PASSENGER(PassengerID),
     FOREIGN KEY (FlightID) REFERENCES FLIGHT(FlightID)
 );
-这个是我的数据库relation schema，你可以根据这个来查询你想要的信息。
+这个是我的数据库relation schema，你可以根据这个来查询你想要的信息，请注意日期格式应该为MM-DD-YYYY或者MM-DD-YYYY-HH-MM。
+如果你要输出sql代码，你应该严格按照markdown的形式输出，
+例如```sql <你修改之后的代码>```
 '''
 
 

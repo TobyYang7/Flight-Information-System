@@ -7,6 +7,7 @@ from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
 import util
 from util import OpenAIGPT
+import re
 
 
 history = []
@@ -144,12 +145,27 @@ def admin_page():
                 ai_input = f"{util.prompt},{text},{ai_query}"
             else:
                 ai_input = ai_query
+
             ai_response = igpt(ai_input)
             history.append({"role": "user", "content": ai_query})
             history.append({"role": "assistant", "content": ai_response})
 
         else:
-            history.clear()
+            if len(history) > 0:
+                text = history[-1]['content']
+                history.clear()
+                match_code = re.search(r"```sql\n(.*?)\n```", text, re.DOTALL)
+
+                if match_code:
+                    code = match_code.group(1)
+                    status = util.operate_db(code)
+                    history.append({"role": "user", "content": code})
+                    if status == '' or 'Failed' in status:
+                        history.append({"role": "error", "content": {status}})
+                    else:
+                        history.append({"role": "system", "content": status})
+            else:
+                history.clear()
 
         return render_template('admin_page.html', history=history)
     return render_template('admin_page.html', history=history)
