@@ -55,7 +55,7 @@ def admin_login():
     form = LoginForm()
     if form.validate_on_submit():
         if form.id.data == ADMIN_ID and form.password.data == ADMIN_PASSWORD:
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('admin_page'))
         else:
             return redirect(url_for('wrong'))
     return render_template('admin_login.html', form=form)
@@ -140,8 +140,8 @@ def admin_page():
         else:
             history.clear()
 
-        return render_template('user_page.html', history=history)
-    return render_template('user_page.html', history=history)
+        return render_template('admin_page.html', history=history)
+    return render_template('admin_page.html', history=history)
 
 
 if __name__ == '__main__':
