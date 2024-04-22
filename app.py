@@ -72,7 +72,6 @@ def user_login():
     return render_template('user_login.html', form=form)
 
 
-# todo: LLM interface
 @app.route('/user_page', methods=['GET', 'POST'])
 def user_page():
     if request.method == 'POST':
@@ -122,7 +121,6 @@ def user_page():
     return render_template('user_page.html', history=history)
 
 
-# todo: LLM interface & DB
 @app.route('/admin_page', methods=['GET', 'POST'])
 def admin_page():
     if request.method == 'POST':
@@ -132,10 +130,21 @@ def admin_page():
         if code:
             status = util.operate_db(code)
             history.append({"role": "user", "content": code})
-            history.append({"role": "system", "content": status})
+            if status == '' or 'Failed' in status:
+                history.append({"role": "error", "content": {status}})
+            else:
+                history.append({"role": "system", "content": status})
 
         elif ai_query:
-            ai_response = igpt(ai_query)
+            if len(history) > 0:
+                text = ''
+                for line in range(len(history)):
+                    print(history[line]['content'])
+                    text += str(history[line]['content'])
+                ai_input = f"{util.prompt},{text},{ai_query}"
+            else:
+                ai_input = ai_query
+            ai_response = igpt(ai_input)
             history.append({"role": "user", "content": ai_query})
             history.append({"role": "assistant", "content": ai_response})
 

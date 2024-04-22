@@ -4,6 +4,78 @@ from retrying import retry
 import json
 import mysql.connector
 
+prompt = '''
+-- create project schema
+DROP SCHEMA IF EXISTS FIS;
+CREATE SCHEMA IF NOT EXISTS FIS DEFAULT CHARACTER SET utf8;
+USE FIS;
+
+-- 创建 AIRPORT 表
+CREATE TABLE AIRPORT (
+    AirportID VARCHAR(255) PRIMARY KEY,
+    AirportCity VARCHAR(255),
+    TimeZone VARCHAR(255),
+    Type VARCHAR(255)
+);
+
+-- 创建 AIRLINE 表
+CREATE TABLE AIRLINE (
+    IATACode VARCHAR(255) PRIMARY KEY,
+    Headquarters VARCHAR(255),
+    Alliance VARCHAR(255),
+    FoundingYear VARCHAR(255)
+);
+
+-- 创建 PLANE 表
+CREATE TABLE PLANE (
+    PlaneID VARCHAR(255) PRIMARY KEY,
+    PlaneModel VARCHAR(255),
+    Capacity INT,
+    RegistrationCountryCode VARCHAR(255),
+    Age INT,
+    CurrentOperator VARCHAR(255),
+    FOREIGN KEY (CurrentOperator) REFERENCES AIRLINE(IATACode)
+);
+
+-- 创建 PASSENGER 表
+CREATE TABLE PASSENGER (
+    PassengerID INT PRIMARY KEY,
+    FirstName VARCHAR(255),
+    LastName VARCHAR(255),
+    Gender CHAR(1),
+    Age INT,
+    NationalityCode VARCHAR(255)
+);
+
+-- 创建 FLIGHT 表
+CREATE TABLE FLIGHT (
+    FlightID VARCHAR(255) PRIMARY KEY,
+    DepartureAirportID VARCHAR(255),
+    ArrivalAirportID VARCHAR(255),
+    FlightStatus VARCHAR(255),
+    PlaneID VARCHAR(255),
+    ScheduledDeparture VARCHAR(255),
+    ActualDeparture VARCHAR(255),
+    ScheduledArrival VARCHAR(255),
+    ActualArrival VARCHAR(255),
+    FOREIGN KEY (DepartureAirportID) REFERENCES AIRPORT(AirportID),
+    FOREIGN KEY (ArrivalAirportID) REFERENCES AIRPORT(AirportID),
+    FOREIGN KEY (PlaneID) REFERENCES PLANE(PlaneID)
+);
+
+-- 创建 BOOKING 表
+CREATE TABLE BOOKING (
+    BookingID INT PRIMARY KEY,
+    PassengerID INT,
+    FlightID VARCHAR(255),
+    BookingDate VARCHAR(255),
+    SeatID VARCHAR(255),
+    FOREIGN KEY (PassengerID) REFERENCES PASSENGER(PassengerID),
+    FOREIGN KEY (FlightID) REFERENCES FLIGHT(FlightID)
+);
+这个是我的数据库relation schema，你可以根据这个来查询你想要的信息。
+'''
+
 
 '''
 User Interface: get_flight_info, get_airport_info
@@ -30,7 +102,7 @@ def format_data(fields, result):
         line_data = ""
         for i in range(len(field)):
             line_data += f"{field[i]}: {iter[i]}\n"
-        ret += line_data
+        ret += line_data + "\n"
     return ret.rstrip('\n')
 
 
@@ -81,7 +153,6 @@ def get_airport_info(airport_code):
 
 
 def operate_db(code):
-    # todo
     '''
     Input:
         code: string, sql code
@@ -89,7 +160,30 @@ def operate_db(code):
         Include four operations: insert, delete, update, query
         Each operation will directly return the result(or status) of the operation.
     '''
-    pass
+
+    try:
+        cursor, cnx = prepare_cursor()
+        cursor.execute(code)
+        if code.lower().startswith("select"):
+            result = cursor.fetchall()
+            fields = cursor.description
+            ret = format_data(fields, result)
+            ret += "\n\n" + f"{cursor.rowcount} row(s) returned"
+            return ret
+        try:
+            cnx.commit()
+        except Exception as e:
+            cnx.rollback()
+            return f"Failed to operate: {e}"
+        result = f"{cursor.rowcount} row(s) affected, {cursor.warning_count} warning(s)"
+        return result
+
+    except Exception as e:
+        return f"Failed to operate: {e}"
+
+    finally:
+        if 'cursor' in locals():
+            cursor.close()
 
 
 # todo: change your own api base url and config the api key
