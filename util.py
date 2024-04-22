@@ -87,6 +87,14 @@ LLM Interface: use the output of the user or admin interface to generate the nex
 '''
 
 
+def update(history):
+    with open('history.jsonl', 'a') as file:
+        for entry in history:
+            json_entry = json.dumps(entry)
+            file.write(json_entry + '\n')
+    history.clear()
+
+
 def prepare_cursor():
     with open('database/fis_config.json') as f:
         config = json.load(f)

@@ -8,6 +8,7 @@ from flask_bcrypt import Bcrypt
 import util
 from util import OpenAIGPT
 import re
+import json
 
 
 history = []
@@ -75,6 +76,7 @@ def user_login():
 
 @app.route('/user_page', methods=['GET', 'POST'])
 def user_page():
+    util.update(history)
     if request.method == 'POST':
         query_type = request.form.get('query_type')
         query = request.form.get('query')
@@ -116,7 +118,7 @@ def user_page():
             history.append({"role": "assistant", "content": ai_response})
 
         else:
-            history.clear()
+            util.update(history)
 
         return render_template('user_page.html', history=history)
     return render_template('user_page.html', history=history)
@@ -124,6 +126,7 @@ def user_page():
 
 @app.route('/admin_page', methods=['GET', 'POST'])
 def admin_page():
+    util.update(history)
     if request.method == 'POST':
         code = request.form.get('query')
         ai_query = request.form.get('ai_query')
@@ -142,7 +145,7 @@ def admin_page():
                 for line in range(len(history)):
                     print(history[line]['content'])
                     text += str(history[line]['content'])
-                ai_input = f"{util.prompt},{text},{ai_query}"
+                ai_input = f"{util.prompt},{text},{ai_query},You should tell me sql code with markdown format"
             else:
                 ai_input = ai_query
 
@@ -153,22 +156,27 @@ def admin_page():
         else:
             if len(history) > 0:
                 text = history[-1]['content']
-                history.clear()
-                match_code = re.search(r"```sql\n(.*?)\n```", text, re.DOTALL)
-
-                if match_code:
-                    code = match_code.group(1)
-                    status = util.operate_db(code)
-                    history.append({"role": "user", "content": code})
-                    if status == '' or 'Failed' in status:
-                        history.append({"role": "error", "content": {status}})
-                    else:
-                        history.append({"role": "system", "content": status})
-            else:
-                history.clear()
+                try:
+                    match_code = re.search(r"```sql\n(.*?)\n```", text, re.DOTALL)
+                    if match_code:
+                        code = match_code.group(1)
+                        status = util.operate_db(code)
+                        history.append({"role": "user", "content": code})
+                        if status == '' or 'Failed' in status:
+                            history.append({"role": "error", "content": {status}})
+                        else:
+                            history.append({"role": "system", "content": status})
+                except:
+                    history.append({"role": "error", "content": "Input your SQL code"})
 
         return render_template('admin_page.html', history=history)
     return render_template('admin_page.html', history=history)
+
+
+@app.route('/clear_history', methods=['POST'])
+def clear_history():
+    util.update(history)
+    return redirect(url_for('admin_page'))
 
 
 if __name__ == '__main__':

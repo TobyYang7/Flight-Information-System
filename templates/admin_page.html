@@ -26,6 +26,9 @@
           placeholder="Ask me anything..."
         />
         <button type="submit">Send</button>
+        <form method="post" action="/clear_history">
+          <button type="submit">Clear History</button>
+        </form>
         <a href="{{ url_for('home') }}">Logout</a>
       </form>
     </div>
