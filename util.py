@@ -50,7 +50,7 @@ def get_flight_info(flight_code):
         return ret
 
     except Exception as e:
-        return f"Failed to get info: {e}"
+        return f"Error"
 
     finally:
         if 'cursor' in locals():
@@ -73,7 +73,7 @@ def get_airport_info(airport_code):
         return ret
 
     except Exception as e:
-        return f"Failed to get info: {e}"
+        return f"Error"
 
     finally:
         if 'cursor' in locals():
