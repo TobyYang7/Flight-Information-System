@@ -135,7 +135,9 @@ def admin_page():
             history.append({"role": "system", "content": status})
 
         if ai_query:
-            pass
+            ai_response = igpt(ai_query)
+            history.append({"role": "user", "content": ai_query})
+            history.append({"role": "assistant", "content": ai_response})
 
         else:
             history.clear()
