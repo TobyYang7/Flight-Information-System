@@ -54,6 +54,7 @@ def wrong():
 
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
+    util.update(history)
     form = LoginForm()
     if form.validate_on_submit():
         if form.id.data == ADMIN_ID and form.password.data == ADMIN_PASSWORD:
@@ -65,6 +66,7 @@ def admin_login():
 
 @app.route('/user_login', methods=['GET', 'POST'])
 def user_login():
+    util.update(history)
     form = LoginForm()
     if form.validate_on_submit():
         if form.id.data == USER_ID and form.password.data == USER_PASSWORD:
@@ -76,7 +78,6 @@ def user_login():
 
 @app.route('/user_page', methods=['GET', 'POST'])
 def user_page():
-    util.update(history)
     if request.method == 'POST':
         query_type = request.form.get('query_type')
         query = request.form.get('query')
@@ -126,7 +127,6 @@ def user_page():
 
 @app.route('/admin_page', methods=['GET', 'POST'])
 def admin_page():
-    util.update(history)
     if request.method == 'POST':
         code = request.form.get('query')
         ai_query = request.form.get('ai_query')

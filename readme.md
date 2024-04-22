@@ -114,4 +114,8 @@ If you cannot find the interface, please check whether the database is running.
 
 **Notice:** You need to configure your own API keys and base URL. If you need assistance, please contact [@TobyYang7](https://github.com/tobyyang7).
 
-User can use this interface to query the flight information by using natural language.
+In the user interface, you can interact with the LLM through a chatbox to inquire about flights and airports information.
+
+In the admin interface, you can use the LLM to help you complete SQL code, which can then be executed directly.
+
+![alt text](static/images/interface.png)
