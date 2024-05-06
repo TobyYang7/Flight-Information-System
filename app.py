@@ -93,7 +93,7 @@ def user_page():
             ai_response = igpt(ai_input)
 
             history.append({"role": "user", "content": ai_query})
-            if info == '' or 'Error':
+            if info == '':
                 history.append({"role": "error", "content": "No information found!"})
             history.append({"role": "system", "content": f"{info}"})
             history.append({"role": "assistant", "content": ai_response})
@@ -105,7 +105,7 @@ def user_page():
                 info = util.get_airport_info(query)
 
             history.append({"role": "user", "content": f"Your query {query_type}: {query}"})
-            if info == '' or 'Error':
+            if info == '':
                 history.append({"role": "error", "content": "No information found!"})
             history.append({"role": "system", "content": f"{info}"})
 
